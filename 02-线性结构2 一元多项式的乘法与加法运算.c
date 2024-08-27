@@ -10,11 +10,11 @@ struct PolyNode
     Polynomial link;
 };
 
-Polynomial ReadPoly();
-void Attach(int c,int e,Polynomial *pRear);
-Polynomial Add(Polynomial P1,Polynomial P2);
-Polynomial Mult(Polynomial P1,Polynomial P2);
-void PrintPoly(Polynomial P);
+Polynomial ReadPoly(); /* 此函数用于读取链表 */
+void Attach(int c,int e,Polynomial *pRear); /* 此函数用于将元素加在头节点上 */
+Polynomial Add(Polynomial P1,Polynomial P2); /* 此函数用于将两个多项式相加 */
+Polynomial Mult(Polynomial P1,Polynomial P2); /* 此函数用于将两个多项式相乘 */
+void PrintPoly(Polynomial P); /* 此函数用于打印链表 */
 
 
 int main()
@@ -34,17 +34,17 @@ Polynomial ReadPoly()
     int c,e,n;
 
     scanf("%d",&n);
-    PHead=(Polynomial)malloc(sizeof(struct PolyNode));
+    PHead=(Polynomial)malloc(sizeof(struct PolyNode)); /* 开辟一个空的头节点 */
     PHead->link=NULL;
     Rear=PHead;
 
-    while(n--)
+    while(n--) /* 逐个读入系数和指数 */
     {
         scanf("%d %d",&c,&e);
         Attach(c,e,&Rear);
     }
 
-    t=PHead;
+    t=PHead; /* 将PHead指向第一个节点，并释放空的头节点 */
     PHead=PHead->link;
     free(t);
     return PHead;
@@ -69,10 +69,10 @@ Polynomial Add(Polynomial P1,Polynomial P2)
     t1=P1;
     t2=P2;
 
-    PAns=(Polynomial)malloc(sizeof(struct PolyNode));
+    PAns=(Polynomial)malloc(sizeof(struct PolyNode)); /* 为答案链表开辟空的头节点 */
     Rear=PAns;
 
-    while(t1&&t2)
+    while(t1&&t2) /* 多项式相加算法 */
     {
         if(t1->expon==t2->expon)
         {
@@ -95,7 +95,7 @@ Polynomial Add(Polynomial P1,Polynomial P2)
             t2=t2->link;
         }
     }
-
+    /* 某个多项式余下的项接到答案链表 */
     while(t1)
     {
         Attach(t1->ceof,t1->expon,&Rear);
@@ -155,7 +155,7 @@ Polynomial Mult(Polynomial P1,Polynomial P2)
             {
                 Rear=Rear->link;
             }
-            if(Rear->link&&Rear->link->expon==e)
+            if(Rear->link&&Rear->link->expon==e) /* 指数相等则合并 */
             {
                 if(Rear->link->ceof+c)
                 {
@@ -168,7 +168,7 @@ Polynomial Mult(Polynomial P1,Polynomial P2)
                     free(t);
                 }
             }
-            else
+            else /* 指数不等则插入 */
             {
                 t=(Polynomial)malloc(sizeof(struct PolyNode));
                 t->ceof=c;
