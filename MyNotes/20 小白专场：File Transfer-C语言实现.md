@@ -220,4 +220,6 @@ int main()
 $$k_1M\alpha(M,N)\leq T(M,N)\leq k_2M\alpha(M,N) $$
 $Ackermann$函数和 $\alpha(M,N)$
 ![image26](image/image26.png)
-$$\alpha(M,N)=min{i\geq 1|A(i,[M/N])>logN}$$
+$\alpha(M,N)=min\{i\geq 1|A(i,[M/N])>logN\}\leq O(log^*N)\leq4$
+
+$log^*N$（ $Ackermann$反函数）=对 $N$求对数直到结果 $\leq 1$的次数
